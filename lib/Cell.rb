@@ -1,12 +1,11 @@
-require 'grid'
+require './lib/Grid'
 
 class Cell
-  attr_reader :x, :y, :life, :cell_neighbors
+  attr_reader :x, :y, :life, :living_neighbors
   def initialize(x, y)
     @x = x
     @y = y
     @life = false
-    @cell_neighbors = []
   end
 
   def kill
@@ -20,9 +19,9 @@ class Cell
   def anybody_out_there
     @living_neighbors = []
     Grid.spaces.each do |cell|
-      if cell.x == self.x-1  || cell.x == self.x+1 || cell.x == self.x && cell.life == true
+      if (cell.x == self.x-1  || cell.x == self.x+1 || cell.x == self.x && cell != self) && cell.life == true
         living_neighbors << cell
-      elsif cell.y == self.y-1  || cell.y == self.y+1 || cell.y == self.y && cell.life == true
+      elsif (cell.y == self.y-1  || cell.y == self.y+1 || cell.y == self.y && cell != self) && cell.life == true
         living_neighbors << cell
       end
     end
@@ -34,6 +33,8 @@ class Cell
       give_life
     elsif @living_neighbors.length < 2 || @living_neighbors.length > 3
       kill
+    else
+      puts "Shit is over, B!"
     end
   end
 end

@@ -3,16 +3,11 @@ class Game
   attr_reader :grid, :chosen_spaces
 
   def initialize
-    @grid = []
-  end
-
-  def Game.create
-    @grid << Grid.new
-
+    @new_grid = Grid.new
+    @chosen_spaces = []
   end
 
   def initiate_life(chosen_spaces_x, chosen_spaces_y)
-    @chosen_spaces = []
     chosen_space = Cell.new(chosen_spaces_x, chosen_spaces_y)
     @chosen_spaces << chosen_space
 
@@ -21,10 +16,5 @@ class Game
       Grid.spaces[match].give_life
     end
   end
-
-  # def find_cell_neighbors
-  #   self.grid.spaces.each do |cell|
-
-  # end
 
 end
